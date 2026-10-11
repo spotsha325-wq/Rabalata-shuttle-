@@ -1,0 +1,11 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Rabalata Shuttle{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+</head><body><header class="nav"><a class="brand" href="{{ url_for('home') }}"><span class="brand-mark">R</span><span>RABALATA <small>SHUTTLE</small></span></a>
+<nav>{% if logged_user %}<span class="welcome">Hi, {{ logged_user.full_name.split(' ')[0] }}</span>{% if logged_user.role=='driver' %}<a href="{{ url_for('driver_dashboard') }}">Driver dashboard</a>{% else %}<a href="{{ url_for('book') }}">Book a ride</a>{% endif %}<a href="{{ url_for('logout') }}">Log out</a>{% else %}<a href="{{ url_for('login') }}">Log in</a><a class="nav-cta" href="{{ url_for('register') }}">Join Rabalata</a>{% endif %}</nav></header>
+<main class="container">{% with messages=get_flashed_messages(with_categories=true) %}{% if messages %}<div class="messages">{% for category,message in messages %}<div class="alert {{ category }}">{{ message }}</div>{% endfor %}</div>{% endif %}{% endwith %}{% block content %}{% endblock %}</main>
+<footer><span>© {{ year }} Rabalata Shuttle</span><span>c Otsile graphics 2026</span></footer>
+{% block scripts %}{% endblock %}</body></html>
